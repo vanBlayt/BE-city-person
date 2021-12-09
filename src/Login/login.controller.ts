@@ -5,7 +5,8 @@ export class LoginController {
   constructor(private LoginService: LoginService) {}
 
   @Post()
-  login(@Body() body) {
-    return this.LoginService.findAll();
+  async login(@Body() body) {
+    const res = await this.LoginService.findAll(body);
+    return res.length > 0;
   }
 }

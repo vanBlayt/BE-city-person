@@ -7,7 +7,7 @@ import { User, UserDocument } from 'src/schemas/user.schema';
 export class LoginService {
   constructor(@InjectModel('User') private UserModel: Model<UserDocument>) {}
 
-  async findAll(): Promise<User[]> {
-    return await this.UserModel.find().exec();
+  async findAll(user): Promise<User[]> {
+    return await this.UserModel.find(user).exec();
   }
 }
