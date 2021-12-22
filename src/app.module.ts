@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { LoginModule } from './Login/login.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { LoginModule } from './Login/login.module';
       useNewUrlParser: true,
     }),
     LoginModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

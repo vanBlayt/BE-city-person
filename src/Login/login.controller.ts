@@ -1,12 +1,13 @@
 import { Controller, Get, Param, Body, Post } from '@nestjs/common';
-import { LoginService } from './login.services';
+import { LoginService } from './login.service';
+import { UsersService } from '../users/users.service';
 @Controller('login')
 export class LoginController {
-  constructor(private LoginService: LoginService) {}
+  constructor(private UsersService: UsersService) {}
 
-  @Post()
-  async login(@Body() body) {
-    const res = await this.LoginService.findAll(body);
-    return res.length > 0;
-  }
+  // @Post()
+  // async login(@Body() body) {
+  //   const res = await this.UsersService.findOne(body);
+  //   return res.length > 0;
+  // }
 }
