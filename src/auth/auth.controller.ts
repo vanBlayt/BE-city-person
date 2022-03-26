@@ -1,4 +1,4 @@
-import { Controller, Post, Request, UseGuards, HttpCode } from '@nestjs/common';
+import { Controller, Post, Request, UseGuards, HttpCode, Get } from '@nestjs/common';
 import { User } from '../schemas/user.schema';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
@@ -11,5 +11,11 @@ export class AuthController {
   @HttpCode(200)
   async login(@Request() request): Promise<TokenEntity> {
     return this.authService.login(request.user);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('checkToken')
+  async checkToken(@Request() request): Promise<boolean> {
+    return true;
   }
 }
