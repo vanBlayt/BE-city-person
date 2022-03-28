@@ -10,9 +10,7 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   @Get('')
   async findUser(): Promise<any> {
-    console.log(123123);
     const users = await this.userService.findAll();
-    console.log(users);
     return this.userService.findAll();
   }
 
