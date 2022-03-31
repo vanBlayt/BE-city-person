@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { StoriesService } from './stories.service';
 import { Stories } from '../schemas/stories.schema';
@@ -10,5 +10,12 @@ export class StoriesController {
   @Get('introduce')
   async getStoriesIntroduce(): Promise<Array<Stories>> {
     return this.storiesService.getStoriesIntroduce();
+  }
+
+  @Get('singleStory')
+  @UseGuards(AuthGuard('jwt'))
+  async getSingleStory(@Request() req): Promise<Stories> {
+    const { id } = req.query;
+    return this.storiesService.getSingleStory(id);
   }
 }

@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Mongoose } from 'mongoose';
 
 @Schema()
 export class Stories {
   @Prop()
-  _id: string;
+  id: string;
 
   @Prop()
   title: string;
@@ -20,6 +20,9 @@ export class Stories {
 
   @Prop()
   images: Array<string>;
+
+  @Prop()
+  date: Date;
 }
 
 export type StoriesDocument = Stories & Document;

@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Stories } from './stories.schema';
 
 export interface comment {
   username: string;
@@ -10,7 +11,7 @@ export interface comment {
 @Schema()
 export class Comments {
   @Prop()
-  _id: string;
+  id: string;
 
   @Prop()
   comments: Array<comment>;

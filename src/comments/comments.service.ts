@@ -9,7 +9,7 @@ export class CommentsService {
   ) {}
 
   async getCommentById(commentId): Promise<Array<Comments>> {
-    const res = await this.CommentModel.find({ _id: commentId });
+    const res = await this.CommentModel.find({ id: commentId });
     return res;
   }
 }
