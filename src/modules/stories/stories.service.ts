@@ -46,7 +46,14 @@ export class StoriesService {
    * 添加 Story
    * @returns boolean
    */
-  async addSingleStory(): Promise<boolean> {
+  async createStory(body): Promise<boolean> {
+    let insertData = {
+      id: Date.now(),
+      date: new Date(),
+      comments: 0,
+    };
+    insertData = Object.assign({}, insertData, body);
+    this.StoriesModel.create(insertData);
     return true;
   }
 

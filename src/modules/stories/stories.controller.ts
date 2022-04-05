@@ -30,9 +30,16 @@ export class StoriesController {
     return this.storiesService.getSingleStory(id);
   }
 
-  @Post('test')
+  @Post('uploadImg')
+  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('file'))
   async uploadImg(@UploadedFile() file: Express.Multer.File): Promise<any> {
     return this.storiesService.uploadImg(file);
+  }
+
+  @Post('createStory')
+  @UseGuards(AuthGuard('jwt'))
+  async createStory(@Body() body): Promise<any> {
+    return this.storiesService.createStory(body);
   }
 }

@@ -10,16 +10,16 @@ export class Stories {
   title: string;
 
   @Prop()
-  content: string;
+  content?: string;
 
   @Prop()
-  agree: number;
+  agree?: number;
 
   @Prop()
-  commentNumbers: number;
+  commentNumbers?: number;
 
   @Prop()
-  images: Array<string>;
+  images?: Array<string>;
 
   @Prop()
   date: Date;
