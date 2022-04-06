@@ -8,8 +8,48 @@ export class CommentsService {
     @InjectModel(Comments.name) private CommentModel: Model<Comments>,
   ) {}
 
-  async getCommentById(commentId): Promise<Array<Comments>> {
-    const res = await this.CommentModel.find({ id: commentId });
-    return res;
+  async getCommentById(storyId): Promise<Array<Comments>> {
+    return this.CommentModel.findOne({ id: storyId });
+  }
+
+  async deleteCommentById(storyId, commentId): Promise<any> {
+    const storyComment: Comments = await this.CommentModel.findOne({
+      id: storyId,
+    });
+    let comments = storyComment.comments;
+    comments = comments.filter((comment) => comment.id !== commentId);
+    return this.CommentModel.findOneAndUpdate({ id: storyId }, { comments });
+  }
+
+  async postComment(storyId, message, username): Promise<any> {
+    const StoryComment: Comments = await this.CommentModel.findOne({
+      id: storyId,
+    });
+    if (StoryComment !== null) {
+      // 之前已经有评论了
+      const comments = StoryComment.comments;
+      comments.push({
+        id: Date.now().toString(),
+        words: message,
+        time: new Date(),
+        username,
+      });
+      return this.CommentModel.findOneAndUpdate({ id: storyId }, { comments });
+    } else {
+      // 创建评论
+      const comments = [
+        {
+          id: Date.now().toString(),
+          words: message,
+          time: new Date(),
+          username,
+        },
+      ];
+      const storyComment = {
+        id: storyId,
+        comments,
+      };
+      return this.CommentModel.create(storyComment);
+    }
   }
 }

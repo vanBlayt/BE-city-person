@@ -6,6 +6,7 @@ export interface comment {
   username: string;
   words: string;
   time: Date;
+  id: string;
 }
 
 @Schema()

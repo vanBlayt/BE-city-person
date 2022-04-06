@@ -7,6 +7,7 @@ import {
   Body,
   UseInterceptors,
   UploadedFile,
+  Delete,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { StoriesService } from './stories.service';
@@ -41,5 +42,19 @@ export class StoriesController {
   @UseGuards(AuthGuard('jwt'))
   async createStory(@Body() body): Promise<any> {
     return this.storiesService.createStory(body);
+  }
+
+  @Post('updateStory')
+  @UseGuards(AuthGuard('jwt'))
+  async updateStory(@Body() body, @Request() req): Promise<any> {
+    const { id } = req.query;
+    return this.storiesService.updateStory(id, body);
+  }
+
+  @Delete('deleteStory')
+  @UseGuards(AuthGuard('jwt'))
+  async deleteStory(@Request() req): Promise<any> {
+    const { id } = req.query;
+    return this.storiesService.deleteStory(id);
   }
 }

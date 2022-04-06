@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Stories, StoriesDocument } from 'src/common/schemas/stories.schema';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
+import { mergeStory } from 'src/common/utils/story';
 
 @Injectable()
 export class StoriesService {
@@ -36,10 +37,14 @@ export class StoriesService {
    * @param id Story id
    * @returns 操作是否成功
    */
-  async deleteSingleStory(id: string): Promise<boolean> {
+  async deleteStory(id: string): Promise<any> {
     // TODO 删除
     // this.StoriesModel.findOneAndDelete
-    return true;
+    return this.StoriesModel.deleteOne({ id });
+  }
+
+  async updateStory(id, body): Promise<any> {
+    return this.StoriesModel.findOneAndUpdate({ id }, mergeStory(body));
   }
 
   /**
@@ -47,13 +52,7 @@ export class StoriesService {
    * @returns boolean
    */
   async createStory(body): Promise<boolean> {
-    let insertData = {
-      id: Date.now(),
-      date: new Date(),
-      comments: 0,
-    };
-    insertData = Object.assign({}, insertData, body);
-    this.StoriesModel.create(insertData);
+    this.StoriesModel.create(mergeStory(body));
     return true;
   }
 
